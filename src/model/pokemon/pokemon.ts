@@ -14,6 +14,10 @@ export class Pokemon {
     primaryType: PokemonType,
     secondaryType?: PokemonType
   ) {
+    if (name === "") {
+      throw "pokemon name cannot be empty"
+    }
+
     if (number < 1 || number > 905) {
       throw "pokemon number must be between 1 and 905"
     }

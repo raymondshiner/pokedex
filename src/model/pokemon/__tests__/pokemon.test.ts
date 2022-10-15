@@ -39,6 +39,12 @@ describe("Pokemon Object", () => {
     }
   )
 
+  it("should only allow non-empty names", () => {
+    expect(() => {
+      new Pokemon("", 1, "/path", PokemonType.Normal)
+    }).toThrow("pokemon name cannot be empty")
+  })
+
   it("should only allow non-empty imageUrls", () => {
     expect(() => {
       new Pokemon("Ditto", 1, "", PokemonType.Normal)
