@@ -12,13 +12,17 @@ describe("PokemonListItem", () => {
     PokemonType.Normal
   )
 
+  const getByTextCaseInsensitive = (value: string) => {
+    const expectedSecondaryType = new RegExp(value, "i")
+    screen.getByText(expectedSecondaryType)
+  }
+
   const renderDefaultPokemon = () =>
     render(<PokemonListItem pokemon={defaultPokmeon} />)
 
   it("should render the pokemon name", () => {
     renderDefaultPokemon()
-    const expectedName = new RegExp(defaultPokmeon.name, "i")
-    screen.getByText(expectedName)
+    getByTextCaseInsensitive(defaultPokmeon.name)
   })
 
   it("should render the pokemon number", () => {
@@ -28,8 +32,7 @@ describe("PokemonListItem", () => {
 
   it("should render the pokemon primary type", () => {
     renderDefaultPokemon()
-    const expectedType = new RegExp(defaultPokmeon.primaryType, "i")
-    screen.getByText(expectedType)
+    getByTextCaseInsensitive(defaultPokmeon.primaryType)
   })
 
   it("should render the pokemon secondary type if present", () => {
