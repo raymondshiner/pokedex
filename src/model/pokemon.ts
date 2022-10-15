@@ -12,6 +12,10 @@ export class Pokemon {
     primaryType: PokemonType,
     secondaryType?: PokemonType
   ) {
+    if (number < 1 || number > 905) {
+      throw "pokemon number must be between 1 and 905"
+    }
+
     this._name = name
     this._number = number
     this._primaryType = primaryType

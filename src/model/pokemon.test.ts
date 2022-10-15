@@ -5,7 +5,7 @@ describe("Pokemon Object", () => {
   it.each(["Bulbasaur", "Charmander", "Squirtle"])(
     "should always have the name defined",
     (pokemonName: string) => {
-      const pokemon = new Pokemon(pokemonName, 0, PokemonType.Normal)
+      const pokemon = new Pokemon(pokemonName, 1, PokemonType.Normal)
       expect(pokemon.name).toEqual(pokemonName)
     }
   )
@@ -13,7 +13,7 @@ describe("Pokemon Object", () => {
   it.each([PokemonType.Grass, PokemonType.Fire, PokemonType.Water])(
     "should always have the primary type defined",
     (expectedPrimaryType: PokemonType) => {
-      const pokemon = new Pokemon("Ditto", 0, expectedPrimaryType)
+      const pokemon = new Pokemon("Ditto", 1, expectedPrimaryType)
       expect(pokemon.primaryType).toEqual(expectedPrimaryType)
     }
   )
@@ -26,8 +26,22 @@ describe("Pokemon Object", () => {
     }
   )
 
+  it("should only allow pokemon numbers between 1 and 905", () => {
+    const expectedErrorMessage = "pokemon number must be between 1 and 905"
+    const createPokemonWithTooLowNumber = () => {
+      new Pokemon("Ditto", 0, PokemonType.Normal)
+    }
+
+    const createPokemonWithTooHighNumber = () => {
+      new Pokemon("Ditto", 906, PokemonType.Normal)
+    }
+
+    expect(createPokemonWithTooLowNumber).toThrow(expectedErrorMessage)
+    expect(createPokemonWithTooHighNumber).toThrow(expectedErrorMessage)
+  })
+
   it("should have no secondary Type by default", () => {
-    const pokemon = new Pokemon("Bulbasaur", 0, PokemonType.Grass)
+    const pokemon = new Pokemon("Bulbasaur", 1, PokemonType.Grass)
     expect(pokemon.secondaryType).toBe(undefined)
   })
 
@@ -36,7 +50,7 @@ describe("Pokemon Object", () => {
     (expectedSecondaryType: PokemonType) => {
       const pokemon = new Pokemon(
         "Bulbasaur",
-        0,
+        1,
         PokemonType.Normal,
         expectedSecondaryType
       )
