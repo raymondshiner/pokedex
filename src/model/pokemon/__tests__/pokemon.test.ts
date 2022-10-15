@@ -1,5 +1,5 @@
-import { Pokemon } from "./pokemon"
-import { PokemonType } from "./pokemonTypes"
+import { Pokemon } from "../pokemon"
+import { PokemonType } from "../pokemonTypes"
 
 describe("Pokemon Object", () => {
   it.each(["Bulbasaur", "Charmander", "Squirtle"])(
@@ -44,6 +44,8 @@ describe("Pokemon Object", () => {
     const pokemon = new Pokemon("Bulbasaur", 1, PokemonType.Grass)
     expect(pokemon.secondaryType).toBe(undefined)
   })
+
+  it("should have a pokemon", () => {})
 
   it.each([PokemonType.Grass, PokemonType.Fire, PokemonType.Water])(
     "should always have the secondary Type defined",
