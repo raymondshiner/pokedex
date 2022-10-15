@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
-import { Pokemon } from "../../model/pokemon/pokemon"
-import { PokemonType } from "../../model/pokemon/pokemonTypes"
+import { Pokemon } from "../../../model/pokemon/pokemon"
+import { PokemonType } from "../../../model/pokemon/pokemonTypes"
 import { PokemonListItem } from "../PokemonListItem"
 
 describe("PokemonListItem", () => {
