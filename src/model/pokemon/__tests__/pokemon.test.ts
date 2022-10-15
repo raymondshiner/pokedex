@@ -5,7 +5,7 @@ describe("Pokemon Object", () => {
   it.each(["Bulbasaur", "Charmander", "Squirtle"])(
     "should always have the name defined",
     (expectedName: string) => {
-      const pokemon = new Pokemon(expectedName, 1, "", PokemonType.Normal)
+      const pokemon = new Pokemon(expectedName, 1, "/path", PokemonType.Normal)
       expect(pokemon.name).toEqual(expectedName)
     }
   )
@@ -13,7 +13,7 @@ describe("Pokemon Object", () => {
   it.each([PokemonType.Grass, PokemonType.Fire, PokemonType.Water])(
     "should always have the primary type defined",
     (expectedPrimaryType: PokemonType) => {
-      const pokemon = new Pokemon("Ditto", 1, "", expectedPrimaryType)
+      const pokemon = new Pokemon("Ditto", 1, "/path", expectedPrimaryType)
       expect(pokemon.primaryType).toEqual(expectedPrimaryType)
     }
   )
@@ -24,7 +24,7 @@ describe("Pokemon Object", () => {
       const pokemon = new Pokemon(
         "Ditto",
         expectedNumber,
-        "",
+        "/path",
         PokemonType.Normal
       )
       expect(pokemon.number).toEqual(expectedNumber)
@@ -39,14 +39,20 @@ describe("Pokemon Object", () => {
     }
   )
 
+  it("should only allow non-empty imageUrls", () => {
+    expect(() => {
+      new Pokemon("Ditto", 1, "", PokemonType.Normal)
+    }).toThrow("pokemon imageUrl cannot be empty")
+  })
+
   it("should only allow pokemon numbers between 1 and 905", () => {
     const expectedErrorMessage = "pokemon number must be between 1 and 905"
     const createPokemonWithTooLowNumber = () => {
-      new Pokemon("Ditto", 0, "", PokemonType.Normal)
+      new Pokemon("Ditto", 0, "/path", PokemonType.Normal)
     }
 
     const createPokemonWithTooHighNumber = () => {
-      new Pokemon("Ditto", 906, "", PokemonType.Normal)
+      new Pokemon("Ditto", 906, "/path", PokemonType.Normal)
     }
 
     expect(createPokemonWithTooLowNumber).toThrow(expectedErrorMessage)
@@ -54,7 +60,7 @@ describe("Pokemon Object", () => {
   })
 
   it("should have no secondary Type by default", () => {
-    const pokemon = new Pokemon("Bulbasaur", 1, "", PokemonType.Grass)
+    const pokemon = new Pokemon("Bulbasaur", 1, "/path", PokemonType.Grass)
     expect(pokemon.secondaryType).toBe(undefined)
   })
 
@@ -66,7 +72,7 @@ describe("Pokemon Object", () => {
       const pokemon = new Pokemon(
         "Bulbasaur",
         1,
-        "",
+        "/path",
         PokemonType.Normal,
         expectedSecondaryType
       )

@@ -18,9 +18,13 @@ export class Pokemon {
       throw "pokemon number must be between 1 and 905"
     }
 
+    if (imageUrl === "") {
+      throw "pokemon imageUrl cannot be empty"
+    }
+
     this._name = name
     this._number = number
-    this._imageUrl = imageUrl
+    this._imageUrl = imageUrl || "assets/pokeball.png"
     this._primaryType = primaryType
     this._secondaryType = secondaryType
   }
