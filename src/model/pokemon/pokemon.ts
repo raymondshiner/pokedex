@@ -15,14 +15,17 @@ export class Pokemon {
     secondaryType?: PokemonType
   ) {
     if (name === "") {
+      //eslint-disable-next-line
       throw "pokemon name cannot be empty"
     }
 
     if (number < 1 || number > 905) {
+      //eslint-disable-next-line
       throw "pokemon number must be between 1 and 905"
     }
 
     if (imageUrl === "") {
+      //eslint-disable-next-line
       throw "pokemon imageUrl cannot be empty"
     }
 
