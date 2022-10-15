@@ -1,5 +1,5 @@
 import React from "react"
-import { Pokemon } from "../../model/pokemon/pokemon"
+import { Pokemon } from "../../../model/pokemon/pokemon"
 
 export const PokemonListItem = (props: { pokemon: Pokemon }) => {
   const { pokemon } = props
