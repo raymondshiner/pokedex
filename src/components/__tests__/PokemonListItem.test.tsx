@@ -25,9 +25,27 @@ describe("PokemonListItem", () => {
     getByTextCaseInsensitive(defaultPokmeon.name)
   })
 
-  it("should render the pokemon number", () => {
-    renderDefaultPokemon()
-    screen.getByText(defaultPokmeon.number)
+  describe("Pokemon Numbers", () => {
+    const renderPokemonWithNumber = (number: number) => {
+      const pokemon = new Pokemon("ditto", number, "/path", PokemonType.Normal)
+
+      render(<PokemonListItem pokemon={pokemon} />)
+    }
+
+    it("should render provided single digit pokemon numbers as #00X", () => {
+      renderPokemonWithNumber(1)
+      screen.getByText(`#001`)
+    })
+
+    it("should render provided double digit pokemon numbers as #0XX", () => {
+      renderPokemonWithNumber(11)
+      screen.getByText(`#011`)
+    })
+
+    it("should render provided triple digit pokemon numbers as #XXX", () => {
+      renderPokemonWithNumber(111)
+      screen.getByText(`#111`)
+    })
   })
 
   it("should render the pokemon primary type", () => {
