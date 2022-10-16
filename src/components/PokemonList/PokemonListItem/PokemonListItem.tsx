@@ -36,6 +36,7 @@ const Stack = styled(Flexbox)`
 `
 
 const SpaceBetween = styled(Flexbox)`
+  align-items: center;
   justify-content: space-between;
 `
 
@@ -45,7 +46,6 @@ const ListItemWrapper = styled(Flexbox)`
   border-radius: 1rem;
   background-color: white;
   border: 1px solid black;
-  width: 30rem;
   padding: 1rem;
 `
 
