@@ -18,6 +18,6 @@ export const PokemonList = (props: { pokemonList: Pokemon[] }) => {
 const Grid = styled.div`
   justify-content: center;
   display: grid;
-  grid-template-columns: 25% 25%;
+  grid-template-columns: 30% 30%;
   gap: 1rem;
 `
