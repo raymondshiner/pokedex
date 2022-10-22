@@ -70,10 +70,5 @@ const Number = styled.div`
 `
 
 const formatPokemonNumber = (number: number) => {
-  const numberIsOneDigit = number < 10
-  const numberIsTwoDigits = number < 100
-
-  if (numberIsOneDigit) return "#00" + number
-  if (numberIsTwoDigits) return "#0" + number
-  return "#" + number
+  return "#" + number.toString().padStart(3, "0")
 }

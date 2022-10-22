@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import { Pokemon } from "../../../model/pokemon/pokemon"
 import { PokemonType } from "../../../model/pokemon/pokemonTypes"
 import { PokemonList } from "../PokemonList"
