@@ -1,6 +1,4 @@
-import { render, screen } from "@testing-library/react"
-import React from "react"
-import { mockComponent } from "react-dom/test-utils"
+import { render } from "@testing-library/react"
 import { Pokemon } from "../../../model/pokemon/pokemon"
 import { PokemonType } from "../../../model/pokemon/pokemonTypes"
 import { PokemonList } from "../PokemonList"
@@ -32,15 +30,13 @@ describe("PokemonList", () => {
   it("should render a pokemon list item for each pokemon passed in", () => {
     render(<PokemonList pokemonList={tenPokemonList} />)
     expect(mockedPokemonListItem).toHaveBeenCalledTimes(10)
-    {
-      tenPokemonList.forEach((pokemon) => {
-        expect(mockedPokemonListItem).toHaveBeenCalledWith(
-          {
-            pokemon: expect.objectContaining(pokemon),
-          },
-          {}
-        )
-      })
-    }
+    tenPokemonList.forEach((pokemon) => {
+      expect(mockedPokemonListItem).toHaveBeenCalledWith(
+        {
+          pokemon: expect.objectContaining(pokemon),
+        },
+        {}
+      )
+    })
   })
 })
