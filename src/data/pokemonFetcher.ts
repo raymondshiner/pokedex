@@ -4,15 +4,16 @@ export interface ExpectedJSON {
 }
 
 interface PokeAPI {
-  get: () => Promise<ExpectedJSON>
+  get: () => Promise<ExpectedJSON[]>
 }
 
 const fetchAllPokemonURL =
   "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
 
 export class PokemonFetcher implements PokeAPI {
-  public async get(): Promise<ExpectedJSON> {
+  public async get(): Promise<ExpectedJSON[]> {
     const response = await fetch(fetchAllPokemonURL)
-    return response.json()
+    const json = await response.json()
+    return json.result
   }
 }

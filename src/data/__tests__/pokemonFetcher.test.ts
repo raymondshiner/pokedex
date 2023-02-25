@@ -7,13 +7,13 @@ const mockResult: ExpectedJSON = {
 
 describe("PokemonFetcher", () => {
   beforeEach(() => {
-    jest
-      .spyOn(global, "fetch")
-      .mockImplementation(
-        jest.fn(() =>
-          Promise.resolve({ json: () => Promise.resolve(mockResult) })
-        ) as jest.Mock
-      )
+    jest.spyOn(global, "fetch").mockImplementation(
+      jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ result: [mockResult] }),
+        })
+      ) as jest.Mock
+    )
   })
 
   afterEach(() => {
@@ -23,6 +23,6 @@ describe("PokemonFetcher", () => {
   it("gets pokemon urls", async () => {
     const pokemonFetcher = new PokemonFetcher()
     const result = await pokemonFetcher.get()
-    expect(result).toEqual(mockResult)
+    expect(result).toEqual([mockResult])
   })
 })
