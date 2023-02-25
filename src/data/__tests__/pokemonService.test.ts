@@ -1,20 +1,25 @@
-import { Pokemon } from "../../model/pokemon/pokemon"
 import { PokeAPI, PokemonAPIResult } from "../pokemonFetcher"
 import { PokemonService } from "../pokemonService"
 
+const expectedAPIresult: PokemonAPIResult = {
+  name: "Bulbasaur",
+  url: "https://pokeapi.co/api/v2/pokemon/1/",
+}
+
 export class FakePokemonFetcher implements PokeAPI {
+  constructor(private results: PokemonAPIResult[]) {}
+
   public async get(): Promise<PokemonAPIResult[]> {
-    return []
+    return this.results
   }
 }
 
 describe("PokemonService", () => {
-  it("should call the PokeAPI passed in", () => {
-    const fakePokemonFetcher = new FakePokemonFetcher()
+  it("should return data from pokemonfetcher", async () => {
+    const fakePokemonFetcher = new FakePokemonFetcher([expectedAPIresult])
     const pokemonService = new PokemonService(fakePokemonFetcher)
 
-    const myTeam: Pokemon[] = pokemonService.getPokemon()
-
-    expect(myTeam).toEqual([])
+    const myTeam: PokemonAPIResult[] = await pokemonService.getPokemon()
+    expect(myTeam).toEqual([expectedAPIresult])
   })
 })
