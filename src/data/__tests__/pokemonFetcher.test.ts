@@ -1,6 +1,6 @@
-import { PokemonFetcher, ExpectedJSON } from "../pokemonFetcher"
+import { PokemonFetcher, PokemonAPIResult } from "../pokemonFetcher"
 
-const mockResult: ExpectedJSON = {
+const mockResult: PokemonAPIResult = {
   name: "Pikachu",
   url: "https://pokeapi.co/api/v2/pokemon/25/",
 }
