@@ -1,25 +1,55 @@
-import { PokeAPI, PokemonAPIResult } from "../pokemonFetcher"
+import { Pokemon, PokemonData } from "../../model/pokemon/pokemon"
+import { PokemonType } from "../../model/pokemon/pokemonTypes"
+import { PokeAPI } from "../pokemonFetcher"
 import { PokemonService } from "../pokemonService"
 
-const expectedAPIresult: PokemonAPIResult = {
+const bulbasaurMockData: PokemonData = {
   name: "Bulbasaur",
-  url: "https://pokeapi.co/api/v2/pokemon/1/",
+  number: 1,
+  imageUrl:
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+  primaryType: PokemonType.Grass,
+  secondaryType: PokemonType.Poison,
 }
 
 export class FakePokemonFetcher implements PokeAPI {
-  constructor(private results: PokemonAPIResult[]) {}
+  private results: string[] = []
+  private pokemonDataResult: PokemonData = {
+    name: "NONE",
+    number: 0,
+    imageUrl: "NONE",
+    primaryType: PokemonType.Grass,
+  }
 
-  public async get(): Promise<PokemonAPIResult[]> {
+  public async getAllNames(): Promise<string[]> {
     return this.results
+  }
+
+  public async setResults(results: string[]) {
+    this.results = results
+  }
+
+  public async getPokemonData(name: string): Promise<PokemonData> {
+    if (name === "Bulbasaur") return bulbasaurMockData
+    return this.pokemonDataResult
+  }
+
+  public async setPokemonDataResult(result: PokemonData) {
+    this.pokemonDataResult = result
   }
 }
 
 describe("PokemonService", () => {
   it("should return data from pokemonfetcher", async () => {
-    const fakePokemonFetcher = new FakePokemonFetcher([expectedAPIresult])
+    const fakePokemonFetcher = new FakePokemonFetcher()
+    fakePokemonFetcher.setResults(["Bulbasaur"])
+
     const pokemonService = new PokemonService(fakePokemonFetcher)
 
-    const myTeam: PokemonAPIResult[] = await pokemonService.getPokemon()
-    expect(myTeam).toEqual([expectedAPIresult])
+    const fetchedPokemon: Pokemon[] = await pokemonService.getAllPokemon()
+
+    const bulbasaurPokemon = new Pokemon(bulbasaurMockData)
+
+    expect(fetchedPokemon).toEqual([bulbasaurPokemon])
   })
 })

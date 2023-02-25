@@ -1,16 +1,14 @@
-import { PokemonFetcher, PokemonAPIResult } from "../pokemonFetcher"
+import { PokemonFetcher } from "../pokemonFetcher"
 
-const mockResult: PokemonAPIResult = {
-  name: "Pikachu",
-  url: "https://pokeapi.co/api/v2/pokemon/25/",
-}
+const expectedPokemonName = "pikachu"
 
 describe("PokemonFetcher", () => {
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockImplementation(
       jest.fn(() =>
         Promise.resolve({
-          json: () => Promise.resolve({ result: [mockResult] }),
+          json: () =>
+            Promise.resolve({ results: [{ name: expectedPokemonName }] }),
         })
       ) as jest.Mock
     )
@@ -20,9 +18,9 @@ describe("PokemonFetcher", () => {
     jest.restoreAllMocks()
   })
 
-  it("gets pokemon urls", async () => {
+  it("gets all pokemon names", async () => {
     const pokemonFetcher = new PokemonFetcher()
-    const result = await pokemonFetcher.get()
-    expect(result).toEqual([mockResult])
+    const fetchedNames: string[] = await pokemonFetcher.getAllNames()
+    expect(fetchedNames).toEqual([expectedPokemonName])
   })
 })

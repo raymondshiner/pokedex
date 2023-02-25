@@ -14,13 +14,13 @@ const generateArrayOfTenPokemon = () => {
   return Array.from(
     { length: 10 },
     (_, i) =>
-      new Pokemon(
-        `pokemon-${i + 1}`,
-        i + 1,
-        `/path-${1}`,
-        PokemonType.Normal,
-        i % 2 === 0 ? PokemonType.Dark : undefined
-      )
+      new Pokemon({
+        name: `pokemon-${i + 1}`,
+        number: i + 1,
+        imageUrl: `/path-${1}`,
+        primaryType: PokemonType.Normal,
+        secondaryType: i % 2 === 0 ? PokemonType.Dark : undefined,
+      })
   )
 }
 

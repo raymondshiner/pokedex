@@ -5,12 +5,12 @@ import { PokemonType } from "../../../../model/pokemon/pokemonTypes"
 import { PokemonListItem } from "../PokemonListItem"
 
 describe("PokemonListItem", () => {
-  const defaultPokmeon = new Pokemon(
-    "ditto",
-    1,
-    "assets/pokemon.png",
-    PokemonType.Normal
-  )
+  const defaultPokmeon = new Pokemon({
+    name: "ditto",
+    number: 1,
+    imageUrl: "assets/pokemon.png",
+    primaryType: PokemonType.Normal,
+  })
 
   const getByTextCaseInsensitive = (value: string) => {
     const expectedSecondaryType = new RegExp(value, "i")
@@ -27,7 +27,12 @@ describe("PokemonListItem", () => {
 
   describe("Pokemon Numbers", () => {
     const renderPokemonWithNumber = (number: number) => {
-      const pokemon = new Pokemon("ditto", number, "/path", PokemonType.Normal)
+      const pokemon = new Pokemon({
+        name: "ditto",
+        number,
+        imageUrl: "/path",
+        primaryType: PokemonType.Normal,
+      })
 
       render(<PokemonListItem pokemon={pokemon} />)
     }
@@ -58,13 +63,13 @@ describe("PokemonListItem", () => {
     const expectedSecondaryType = new RegExp(secondaryType, "i")
 
     const oneTypePokemon = defaultPokmeon
-    const twoTypePokemon = new Pokemon(
-      "bulbasaur",
-      1,
-      "/path",
-      PokemonType.Bug,
-      secondaryType
-    )
+    const twoTypePokemon = new Pokemon({
+      name: "bulbasaur",
+      number: 1,
+      imageUrl: "/path",
+      primaryType: PokemonType.Bug,
+      secondaryType,
+    })
 
     const { rerender } = render(<PokemonListItem pokemon={oneTypePokemon} />)
     expect(screen.queryByText(expectedSecondaryType)).toBeNull()

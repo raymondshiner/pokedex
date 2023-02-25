@@ -1,5 +1,13 @@
 import { PokemonType } from "./pokemonTypes"
 
+export type PokemonData = {
+  name: string
+  number: number
+  imageUrl: string
+  primaryType: PokemonType
+  secondaryType?: PokemonType
+}
+
 export class Pokemon {
   private _name: string
   private _number: number
@@ -7,13 +15,13 @@ export class Pokemon {
   private _primaryType: PokemonType
   private _secondaryType: PokemonType | undefined
 
-  constructor(
-    name: string,
-    number: number,
-    imageUrl: string,
-    primaryType: PokemonType,
-    secondaryType?: PokemonType
-  ) {
+  constructor({
+    name,
+    number,
+    imageUrl,
+    primaryType,
+    secondaryType,
+  }: PokemonData) {
     if (name === "") {
       //eslint-disable-next-line
       throw "pokemon name cannot be empty"

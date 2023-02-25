@@ -1,19 +1,34 @@
-export interface PokemonAPIResult {
-  name: string
-  url: string
-}
+import { PokemonData } from "../model/pokemon/pokemon"
+import { PokemonType } from "../model/pokemon/pokemonTypes"
 
 export interface PokeAPI {
-  get: () => Promise<PokemonAPIResult[]>
+  getAllNames: () => Promise<string[]>
+  getPokemonData: (name: string) => Promise<PokemonData>
 }
 
-const fetchAllPokemonURL =
-  "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+const basePokemonURL = "https://pokeapi.co/api/v2/pokemon"
 
 export class PokemonFetcher implements PokeAPI {
-  public async get(): Promise<PokemonAPIResult[]> {
-    const response = await fetch(fetchAllPokemonURL)
+  public async getAllNames(): Promise<string[]> {
+    const getAllPokemonURLendpoint = basePokemonURL + "?limit=100000&offset=0"
+
+    const response = await fetch(getAllPokemonURLendpoint)
     const json = await response.json()
-    return json.result
+
+    const pokemonNames: string[] = json.results.map(
+      (result: { name: string }) => result.name
+    )
+
+    return pokemonNames
+  }
+
+  public async getPokemonData(name: string): Promise<PokemonData> {
+    return {
+      name: "Pikachu",
+      number: 25,
+      imageUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      primaryType: PokemonType.Electric,
+    }
   }
 }
